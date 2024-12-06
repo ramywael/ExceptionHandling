@@ -110,7 +110,7 @@ namespace Task29_11
     {
         private int DateTimeCurrent = DateTime.Now.Year;
         const double bonus = 50;
-        int Counter = 1;
+        int Counter = 0;
         public TrustAccount(string name = "Ramy", double balance = 6000, double interestRate = 0.25) : base(name, balance, interestRate)
         {
 
@@ -119,17 +119,19 @@ namespace Task29_11
 
         public override bool Withdraw(double amount)
         {
-            if ((Counter != 3) && (amount) < (0.20 * Balance))
+            if (DateTime.Now.Year != DateTimeCurrent)
+            {
+                Counter = 0;
+                DateTimeCurrent = DateTime.Now.Year;
+            }
+
+            if ((Counter < 3) && (amount) < (0.20 * Balance))
             {
                 Counter++;
                 return base.Withdraw(amount);
             }
-            if(DateTime.Now.Year != DateTimeCurrent)
-            {
-                Counter = 0;
-                DateTimeCurrent=DateTime.Now.Year; 
-            }
-            if (Counter == 3)
+
+            if (Counter >=3)
             {
                 Console.WriteLine("Sorry You Hit The Limit of Withdrawyearly");
                 return false;
@@ -247,11 +249,17 @@ namespace Task29_11
 
             AccountUtil.Display(trustAccounts);
             AccountUtil.Deposit(trustAccounts, 1000);
-            AccountUtil.Deposit(trustAccounts, 6000);
-            AccountUtil.Withdraw(trustAccounts, 2000);
-            AccountUtil.Withdraw(trustAccounts, 3000);
-            AccountUtil.Withdraw(trustAccounts, 500);
-            AccountUtil.Withdraw(trustAccounts, 500);
+            AccountUtil.Deposit(trustAccounts, 3000);
+            AccountUtil.Withdraw(trustAccounts, 1000);
+            AccountUtil.Withdraw(trustAccounts, 1000);
+            AccountUtil.Withdraw(trustAccounts, 1000);
+            AccountUtil.Withdraw(trustAccounts, 1000);
+
+
+
+
+
+
 
 
             Console.WriteLine();
