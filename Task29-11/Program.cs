@@ -108,6 +108,7 @@ namespace Task29_11
 
     public class TrustAccount : SavingAccount
     {
+        private int DateTimeCurrent = DateTime.Now.Year;
         const double bonus = 50;
         int Counter = 1;
         public TrustAccount(string name = "Ramy", double balance = 6000, double interestRate = 0.25) : base(name, balance, interestRate)
@@ -122,6 +123,11 @@ namespace Task29_11
             {
                 Counter++;
                 return base.Withdraw(amount);
+            }
+            if(DateTime.Now.Year != DateTimeCurrent)
+            {
+                Counter = 0;
+                DateTimeCurrent=DateTime.Now.Year; 
             }
             if (Counter == 3)
             {
@@ -245,6 +251,8 @@ namespace Task29_11
             AccountUtil.Withdraw(trustAccounts, 2000);
             AccountUtil.Withdraw(trustAccounts, 3000);
             AccountUtil.Withdraw(trustAccounts, 500);
+            AccountUtil.Withdraw(trustAccounts, 500);
+
 
             Console.WriteLine();
         }
